@@ -2,19 +2,19 @@
 <v-row>
   <v-col  cols="8"
         sm="2">
-      <span >{{ lesson.title }}</span>
+      <span >{{ artist.title }}</span>
   </v-col>
   <v-col  cols="8"
         sm="4">
-      <span> {{ lesson.description }}</span>
+      <span> {{ artist.description }}</span>
   </v-col>
   <v-col  cols="8"
         sm="1">
-      <v-btn size="x-small" icon="mdi-pencil" @click="updateLesson"/>
+      <v-btn size="x-small" icon="mdi-pencil" @click="updateArtist"/>
   </v-col>
   <v-col  cols="8"
         sm="1">
-      <v-btn size="x-small" icon="mdi-trash-can" @click="deleteLesson"/>
+      <v-btn size="x-small" icon="mdi-trash-can" @click="deleteArtist"/>
   </v-col>
 </v-row>
 </template>
@@ -22,7 +22,7 @@
 <script>
 export default {
   props: {
-    lesson: Object
+    artist: Object
   },
   data() {
     return {
@@ -31,11 +31,11 @@ export default {
   },
   methods: {
 
-    deleteLesson() {
-      this.$emit("deleteLesson");
+    deleteArtist() {
+      this.$emit("deleteAlbum");
     },
-    updateLesson() {
-      this.$emit("updateLesson");
+    updateArtist() {
+      this.$emit("updateAlbum");
     }
   }
 };

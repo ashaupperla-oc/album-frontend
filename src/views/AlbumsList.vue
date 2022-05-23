@@ -1,6 +1,6 @@
 <template>
 
-    <h1>Tutorial List</h1>
+    <h1>Album List</h1>
     <h4>{{ message }}</h4>
   
       <v-row >
@@ -39,57 +39,57 @@
             <span class="text-h6">Delete</span>
         </v-col>
       </v-row>
-      <TutorialDisplay
-        v-for="tutorial in tutorials"
-        :key="tutorial.id"
-        :tutorial="tutorial"
-        @deleteTutorial="goDelete(tutorial)"
-        @updateTutorial="goEdit(tutorial)"
-        @viewTutorial="goView(tutorial)"
+      <AlbumDisplay
+        v-for="album in albums"
+        :key="album.id"
+        :album="album"
+        @deleteAlbum="goDelete(album)"
+        @updateAlbum="goEdit(album)"
+        @viewAlbum="goView(album)"
     />
  
-  <v-btn  @click="removeAllTutorials">
+  <v-btn  @click="removeAllAlbums">
     Remove All
   </v-btn>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
-import TutorialDisplay from '@/components/TutorialDisplay.vue';
+import AlbumDataService from "../services/AlbumDataService";
+import AlbumDisplay from '@/components/AlbumDisplay.vue';
 export default {
-  name: "tutorials-list",
+  name: "albums-list",
   data() {
     return {
-      tutorials: [],
-      currentTutorial: null,
+      albums: [],
+      currentAlbum: null,
       currentIndex: -1,
       title: "",
-      message : "Search, Edit or Delete Tutorials"
+      message : "Search, Edit or Delete Albums"
     };
   },
   components: {
-        TutorialDisplay
+        AlbumDisplay
     },
   methods: {
-    goEdit(tutorial) {
-      this.$router.push({ name: 'edit', params: { id: tutorial.id } });
+    goEdit(album) {
+      this.$router.push({ name: 'edit', params: { id: album.id } });
     },
-    goView(tutorial) {
-      this.$router.push({ name: 'view', params: { id: tutorial.id } });
+    goView(album) {
+      this.$router.push({ name: 'view', params: { id: album.id } });
     },
-    goDelete(tutorial) {
-      TutorialDataService.delete(tutorial.id)
+    goDelete(album) {
+      AlbumDataService.delete(album.id)
         .then( () => {
     
-          this.retrieveTutorials()
+          this.retrieveAlbums()
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
-    retrieveTutorials() {
-      TutorialDataService.getAll()
+    retrieveAlbums() {
+      AlbumDataService.getAll()
         .then(response => {
-          this.tutorials = response.data;
+          this.albums = response.data;
           
         })
         .catch(e => {
@@ -97,16 +97,16 @@ export default {
         });
     },
     refreshList() {
-      this.retrieveTutorials();
-      this.currentTutorial = null;
+      this.retrieveAlbums();
+      this.currentAlbum = null;
       this.currentIndex = -1;
     },
-    setActiveTutorial(tutorial, index) {
-      this.currentTutorial = tutorial;
-      this.currentIndex = tutorial ? index : -1;
+    setActiveAlbum(album, index) {
+      this.currentAlbum = album;
+      this.currentIndex = album ? index : -1;
     },
-    removeAllTutorials() {
-      TutorialDataService.deleteAll()
+    removeAllAlbums() {
+      AlbumDataService.deleteAll()
         .then(response => {
           console.log(response.data);
           this.refreshList();
@@ -117,10 +117,10 @@ export default {
     },
     
     searchTitle() {
-      TutorialDataService.findByTitle(this.title)
+      AlbumDataService.findByTitle(this.title)
         .then(response => {
-          this.tutorials = response.data;
-          this.setActiveTutorial(null);
+          this.albums = response.data;
+          this.setActiveAlbum(null);
           
         })
         .catch(e => {
@@ -129,7 +129,7 @@ export default {
     }
   },
   mounted() {
-    this.retrieveTutorials();
+    this.retrieveAlbums();
   }
 };
 </script>

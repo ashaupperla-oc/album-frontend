@@ -1,23 +1,21 @@
 <template>
-    <h1>Tutorial Edit</h1>
+    <h1>Edit Artist</h1>
     <h4>{{ message }}</h4>
+    <h4>Album : {{albumId}} Artist : {{artistId}}</h4>
+
     <v-form>
        <v-text-field
             label="Title"
-            v-model="tutorial.title"
+            v-model="artist.title"
         />
         <v-text-field
             label="Description"
-            v-model="tutorial.description"
-        />
-        <v-text-field
-            label="Description"
-            v-model="tutorial.published"
+            v-model="artist.description"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="updateTutorial()"
+                <v-btn color="success" @click="saveArtist()"
                     >Save</v-btn
                 >
             </v-col>
@@ -29,50 +27,49 @@
     </v-form>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import ArtistDataService from "../services/ArtistDataService";
 export default {
-  name: "edit-tutorial",
-  props: ['id'],
+  name: "edit-artist",
+  props: {albumId : String,artistId:String},
   data() {
     return {
-      tutorial: {},
+      artist: Object,
       message: "Enter data and click save"
     };
   },
   methods: {
-    retrieveTutorial() {
-      TutorialDataService.get(this.id)
+    retrieveArtist() {
+      ArtistDataService.getArtist(this.albumId,this.artistId)
         .then(response => {
-          this.tutorial= response.data;
+          this.artist= response.data;
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
 
     },
-
-    updateTutorial() {
+    saveArtist() {
       var data = {
-        title: this.tutorial.title,
-        description: this.tutorial.description
-
+        title: this.artist.title,
+        description: this.artist.description,
+        albumId : this.artist.albumId
       };
-      TutorialDataService.update(this.id,data)
+      ArtistDataService.updateArtist(this.artist.albumId,this.artist.id, data)
         .then(response => {
-          this.tutorial.id = response.data.id;
-          console.log("add "+response.data);
-          this.$router.push({ name: 'tutorials' });
+          this.artist.id = response.data.id;
+        
+         this.$router.push({ name: 'view' , params: { id: this.artist.albumId }} );
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'tutorials' });
+        this.$router.push({ name: 'view' , params: { id: this.artist.albumId }} );
     }
   },
     mounted() {
-    this.retrieveTutorial();
+      this.retrieveArtist();
   }
 }
 
