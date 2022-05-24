@@ -14,7 +14,7 @@
         </v-col>
         <v-col  cols="8"
               sm="4">
-            <span class="text-h6">Artist</span>
+            <span class="text-h6">Description</span>
         </v-col>
         <v-col  cols="8"
               sm="1">
