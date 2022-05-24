@@ -7,8 +7,8 @@
             v-model="album.title"
         />
         <v-text-field
-            label="Description"
-            v-model="album.description"
+            label="Artist"
+            v-model="album.artist"
         />
         <v-text-field
             label="Description"
@@ -54,7 +54,7 @@ export default {
     updateAlbum() {
       var data = {
         title: this.album.title,
-        description: this.album.description
+        artist: this.album.artist
 
       };
       AlbumDataService.update(this.id,data)

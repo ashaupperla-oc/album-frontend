@@ -24,15 +24,15 @@ const routes =  [
     props: true
   },
   {
-    path: "/addArtist",
-    name: "addArtist",
-    component: () => import("./views/AddArtist.vue"),
+    path: "/addSong",
+    name: "addSong",
+    component: () => import("./views/AddSong.vue"),
     props: true
   },
   {
-    path: "/editArtist",
-    name: "editArtist",
-    component: () => import("./views/EditArtist.vue"),
+    path: "/editSong",
+    name: "editSong",
+    component: () => import("./views/EditSong.vue"),
     props: true
   }
 ];

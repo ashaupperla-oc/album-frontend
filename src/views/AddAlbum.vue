@@ -7,8 +7,8 @@
             v-model="album.title"
         />
         <v-text-field
-            label="Description"
-            v-model="album.description"
+            label="Artist"
+            v-model="album.artist"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
@@ -33,7 +33,7 @@ export default {
       album: {
         id: null,
         title: "",
-        description: "",
+        artist: "",
         published: false
       },
       message: "Enter data and click save"
@@ -43,7 +43,7 @@ export default {
     saveAlbum() {
       var data = {
         title: this.album.title,
-        description: this.album.description
+        artist: this.album.artist
       };
       AlbumDataService.create(data)
         .then(response => {

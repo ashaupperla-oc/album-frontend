@@ -4,8 +4,8 @@
     <h3> {{album.title}}</h3>
     <v-btn color="success" @click="goEditAlbum()"
     >Edit</v-btn>
-     <v-btn color="success" @click="goAddArtist(id)"
-    >Add Artist</v-btn>
+     <v-btn color="success" @click="goAddSong(id)"
+    >Add Song</v-btn>
 
      <v-row>
         <v-col  cols="8"
@@ -14,7 +14,7 @@
         </v-col>
         <v-col  cols="8"
               sm="4">
-            <span class="text-h6">Description</span>
+            <span class="text-h6">Artist</span>
         </v-col>
         <v-col  cols="8"
               sm="1">
@@ -25,41 +25,41 @@
             <span class="text-h6">Delete</span>
         </v-col>
       </v-row>
-      <ArtistDisplay
-        v-for="artist in artists"
-        :key="artist.id"
-        :artist="artist"
-        @deleteArtist="goDeleteArtist(artist)"
-        @updateArtist="goEditArtist(artist)"
+      <SongDisplay
+        v-for="song in songs"
+        :key="song.id"
+        :song="song"
+        @deleteSong="goDeleteSong(song)"
+        @updateSong="goEditSong(song)"
     />
 
    
 </template>
 <script>
 import AlbumDataService from "../services/AlbumDataService";
-import ArtistDataService from "../services/ArtistDataService";
-import ArtistDisplay from '@/components/ArtistDisplay.vue';
+import SongDataService from "../services/SongDataService";
+import SongDisplay from '@/components/SongDisplay.vue';
 export default {
   name: "view-album",
   props: ['id'],
     components: {
-        ArtistDisplay
+        SongDisplay
     },
   data() {
     return {
       album: {},
-      artists : [],
-      message: "Add, Edit or Delete Artists"
+      songs : [],
+      message: "Add, Edit or Delete Songs"
     };
   },
   methods: {
-    retrieveArtists() {
+    retrieveSongs() {
       AlbumDataService.get(this.id)
         .then(response => {
           this.album= response.data;
-          ArtistDataService.getAllArtists(this.id)
+          SongDataService.getAllSongs(this.id)
             .then(response=> {
-              this.artists = response.data})
+              this.songs = response.data})
             .catch(e => {
                 this.message = e.response.data.message;
               });
@@ -71,17 +71,17 @@ export default {
      goEditAlbum() {
       this.$router.push({ name: 'edit', params: { id: this.id } });
     },
-    goEditArtist(artist) {
-      this.$router.push({ name: 'editArtist', params: { albumId: this.id,artistId: artist.id} });
+    goEditSong(song) {
+      this.$router.push({ name: 'editSong', params: { albumId: this.id,songId: song.id} });
     },
-    goAddArtist() {
-      this.$router.push({ name: 'addArtist', params: { albumId: this.id } });
+    goAddSong() {
+      this.$router.push({ name: 'addSong', params: { albumId: this.id } });
     },
 
-    goDeleteArtist(artist) {
-      ArtistDataService.deleteArtist(artist.albumId,artist.id)
+    goDeleteSong(song) {
+      SongDataService.deleteSong(song.albumId,song.id)
         .then( () => {
-          this.retrieveArtists()
+          this.retrieveSongs()
         })
         .catch(e => {
           this.message = e.response.data.message;
@@ -92,7 +92,7 @@ export default {
     }
   },
     mounted() {
-    this.retrieveArtists();
+    this.retrieveSongs();
   }
 }
 </script>

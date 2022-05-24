@@ -6,7 +6,7 @@
   </v-col>
   <v-col  cols="9"
         sm="4">
-      <span> {{ album.description }}</span>
+      <span> {{ album.artist }}</span>
   </v-col>
   <v-col  cols="9"
         sm="1">

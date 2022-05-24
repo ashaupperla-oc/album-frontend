@@ -1,21 +1,21 @@
 <template>
-    <h1>Edit Artist</h1>
+    <h1>Edit Song</h1>
     <h4>{{ message }}</h4>
-    <h4>Album : {{albumId}} Artist : {{artistId}}</h4>
+    <h4>Album : {{albumId}} Song : {{songId}}</h4>
 
     <v-form>
        <v-text-field
             label="Title"
-            v-model="artist.title"
+            v-model="song.title"
         />
         <v-text-field
             label="Description"
-            v-model="artist.description"
+            v-model="song.description"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveArtist()"
+                <v-btn color="success" @click="saveSong()"
                     >Save</v-btn
                 >
             </v-col>
@@ -27,49 +27,49 @@
     </v-form>
 </template>
 <script>
-import ArtistDataService from "../services/ArtistDataService";
+import SongDataService from "../services/SongDataService";
 export default {
-  name: "edit-artist",
-  props: {albumId : String,artistId:String},
+  name: "edit-song",
+  props: {albumId : String,songId:String},
   data() {
     return {
-      artist: Object,
+      song: Object,
       message: "Enter data and click save"
     };
   },
   methods: {
-    retrieveArtist() {
-      ArtistDataService.getArtist(this.albumId,this.artistId)
+    retrieveSong() {
+      SongDataService.getSong(this.albumId,this.songId)
         .then(response => {
-          this.artist= response.data;
+          this.song= response.data;
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
 
     },
-    saveArtist() {
+    saveSong() {
       var data = {
-        title: this.artist.title,
-        description: this.artist.description,
-        albumId : this.artist.albumId
+        title: this.song.title,
+        description: this.song.description,
+        albumId : this.song.albumId
       };
-      ArtistDataService.updateArtist(this.artist.albumId,this.artist.id, data)
+      SongDataService.updateSong(this.song.albumId,this.song.id, data)
         .then(response => {
-          this.artist.id = response.data.id;
+          this.song.id = response.data.id;
         
-         this.$router.push({ name: 'view' , params: { id: this.artist.albumId }} );
+         this.$router.push({ name: 'view' , params: { id: this.song.albumId }} );
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'view' , params: { id: this.artist.albumId }} );
+        this.$router.push({ name: 'view' , params: { id: this.song.albumId }} );
     }
   },
     mounted() {
-      this.retrieveArtist();
+      this.retrieveSong();
   }
 }
 

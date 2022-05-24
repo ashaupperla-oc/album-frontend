@@ -1,20 +1,20 @@
 <template>
-    <h1>Add Artist</h1>
+    <h1>Add Song</h1>
     <h4>{{ message }}</h4>
     <h4>Album : {{albumId}}</h4>
     <v-form>
        <v-text-field
             label="Title"
-            v-model="artist.title"
+            v-model="song.title"
         />
         <v-text-field
             label="Description"
-            v-model="artist.description"
+            v-model="song.description"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveArtist()"
+                <v-btn color="success" @click="saveSong()"
                     >Save</v-btn
                 >
             </v-col>
@@ -26,13 +26,13 @@
     </v-form>
 </template>
 <script>
-import ArtistDataService from "../services/ArtistDataService";
+import SongDataService from "../services/SongDataService";
 export default {
-  name: "add-artist",
+  name: "add-song",
   props: ['albumId'],
   data() {
     return {
-      artist: {
+      song: {
         id: null,
         title: "",
         description: "",
@@ -42,15 +42,15 @@ export default {
     };
   },
   methods: {
-    saveArtist() {
+    saveSong() {
       var data = {
-        title: this.artist.title,
-        description: this.artist.description,
+        title: this.song.title,
+        description: this.song.description,
         albumId : this.albumId
       };
-      ArtistDataService.createArtist(this.albumId, data)
+      SongDataService.createSong(this.albumId, data)
         .then(response => {
-          this.artist.id = response.data.id;
+          this.song.id = response.data.id;
         
           this.$router.push({ name: 'view' , params: { id: this.albumId }} );
         })
