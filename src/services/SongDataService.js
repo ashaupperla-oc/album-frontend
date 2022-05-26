@@ -1,20 +1,20 @@
 import http from "../http-common";
-class LessonDataService {
-  getAllLessons(tutorialId) {
-    return http.get(`/tutorials/${tutorialId}/lessons`);
+class SongDataService {
+  getAllSongs(albumId) {
+    return http.get(`/albums/${albumId}/songs`);
   }
-  getLesson(tutorialId,id) {
-    return http.get(`/tutorials/${tutorialId}/lessons/${id}`);
+  getSong(albumId,id) {
+    return http.get(`/albums/${albumId}/songs/${id}`);
   }
-  createLesson(tutorialId,data) {
-    return http.post(`/tutorials/${tutorialId}/lessons`, data);
+  createSong(albumId,data) {
+    return http.post(`/albums/${albumId}/songs`, data);
   }
-  updateLesson(tutorialId,id, data) {
-    return http.put(`/tutorials/${tutorialId}/lessons/${id}`, data);
+  updateSong(albumId,id, data) {
+    return http.put(`/albums/${albumId}/songs/${id}`, data);
   }
-  deleteLesson(tutorialId,id) {
-    return http.delete(`/tutorials/${tutorialId}/lessons/${id}`);
+  deleteSong(albumId,id) {
+    return http.delete(`/albums/${albumId}/songs/${id}`);
   }
 
 }
-export default new LessonDataService();
+export default new SongDataService();
