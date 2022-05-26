@@ -1,20 +1,19 @@
 <template>
-    <h1>Add Lesson</h1>
+    <h1>Album Add</h1>
     <h4>{{ message }}</h4>
-    <h4>Tutorial : {{tutorialId}}</h4>
     <v-form>
        <v-text-field
             label="Title"
-            v-model="lesson.title"
+            v-model="album.title"
         />
         <v-text-field
-            label="Description"
-            v-model="lesson.description"
+            label="Artist"
+            v-model="album.artist"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveLesson()"
+                <v-btn color="success" @click="saveAlbum()"
                     >Save</v-btn
                 >
             </v-col>
@@ -26,40 +25,38 @@
     </v-form>
 </template>
 <script>
-import LessonDataService from "../services/LessonDataService";
+import AlbumDataService from "../services/AlbumDataService";
 export default {
-  name: "add-lesson",
-  props: ['tutorialId'],
+  name: "add-album",
   data() {
     return {
-      lesson: {
+      album: {
         id: null,
         title: "",
-        description: "",
+        artist: "",
         published: false
       },
       message: "Enter data and click save"
     };
   },
   methods: {
-    saveLesson() {
+    saveAlbum() {
       var data = {
-        title: this.lesson.title,
-        description: this.lesson.description,
-        tutorialId : this.tutorialId
+        title: this.album.title,
+        artist: this.album.artist
       };
-      LessonDataService.createLesson(this.tutorialId, data)
+      AlbumDataService.create(data)
         .then(response => {
-          this.lesson.id = response.data.id;
-        
-          this.$router.push({ name: 'view' , params: { id: this.tutorialId }} );
+          this.album.id = response.data.id;
+          console.log("add "+response.data);
+          this.$router.push({ name: 'albums' });
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'view' , params: { id: this.tutorialId }} );
+        this.$router.push({ name: 'albums' });
     }
   }
 }
