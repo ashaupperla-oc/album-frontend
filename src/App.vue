@@ -8,7 +8,7 @@
                 max-width="40"
                 contain
             ></v-img>
-            <v-app-bar-title  >Tutorial</v-app-bar-title>
+            <v-app-bar-title  >Albums</v-app-bar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn 
@@ -46,7 +46,7 @@ export default {
       this.$router.push({ name: 'add' });
     },
     goList() {
-      this.$router.push({ name: 'tutorials' });
+      this.$router.push({ name: 'albums' });
     }
   },
 
