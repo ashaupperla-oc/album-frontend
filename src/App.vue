@@ -8,7 +8,7 @@
                 max-width="40"
                 contain
             ></v-img>
-            <v-app-bar-title  >Albums</v-app-bar-title>
+            <v-app-bar-title  >Album</v-app-bar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn 

@@ -3,26 +3,26 @@
     <h4>{{ message }}</h4>
     <h4>Album : {{albumId}}</h4>
     <v-form>
-       <v-text-field
+      <v-text-field
             label="Title"
             v-model="song.title"
-        />
-        <v-text-field
-            label="Description"
-            v-model="song.description"
-        />
-        <v-row justify="center">
-            <v-col col="2"> </v-col>
-            <v-col col="2">
-                <v-btn color="success" @click="saveSong()"
-                    >Save</v-btn
-                >
-            </v-col>
-            <v-col col="2">
-                <v-btn color="info" @click="cancel()">Cancel</v-btn>
-            </v-col>
-            <v-col col="2"> </v-col>
-        </v-row>
+      />
+      <v-text-field
+          label="Genre"
+          v-model="song.genre"
+      />
+      <v-row justify="center">
+          <v-col col="2"> </v-col>
+          <v-col col="2">
+              <v-btn color="success" @click="saveSong()"
+                  >Save</v-btn
+              >
+          </v-col>
+          <v-col col="2">
+              <v-btn color="info" @click="cancel()">Cancel</v-btn>
+          </v-col>
+          <v-col col="2"> </v-col>
+      </v-row>
     </v-form>
 </template>
 <script>
@@ -35,8 +35,7 @@ export default {
       song: {
         id: null,
         title: "",
-        description: "",
-        published: false
+        genre: "",
       },
       message: "Enter data and click save"
     };
@@ -45,6 +44,7 @@ export default {
     saveSong() {
       var data = {
         title: this.song.title,
+        genre: this.song.genre,
         albumId : this.albumId
       };
       SongDataService.createSong(this.albumId, data)
