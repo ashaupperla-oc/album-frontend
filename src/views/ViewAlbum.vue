@@ -12,7 +12,10 @@
               sm="2">
             <span class="text-h6">Title</span>
         </v-col>
-
+        <v-col  cols="8"
+              sm="4">
+            <span class="text-h6">Genre</span>
+        </v-col>
         <v-col  cols="8"
               sm="1">
             <span class="text-h6">Edit</span>

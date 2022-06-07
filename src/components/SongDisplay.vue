@@ -6,7 +6,7 @@
   </v-col>
   <v-col  cols="8"
         sm="4">
-      <span> {{ song.description }}</span>
+      <span> {{ song.genre }}</span>
   </v-col>
   <v-col  cols="8"
         sm="1">
@@ -32,10 +32,10 @@ export default {
   methods: {
 
     deleteSong() {
-      this.$emit("deleteAlbum");
+      this.$emit("deleteSong");
     },
     updateSong() {
-      this.$emit("updateAlbum");
+      this.$emit("updateSong");
     }
   }
 };

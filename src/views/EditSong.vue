@@ -9,8 +9,8 @@
             v-model="song.title"
         />
         <v-text-field
-            label="Description"
-            v-model="song.description"
+            label="Genre"
+            v-model="song.genre"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
@@ -51,7 +51,7 @@ export default {
     saveSong() {
       var data = {
         title: this.song.title,
-        description: this.song.description,
+        genre: this.song.genre,
         albumId : this.song.albumId
       };
       SongDataService.updateSong(this.song.albumId,this.song.id, data)
